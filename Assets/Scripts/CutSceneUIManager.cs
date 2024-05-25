@@ -17,6 +17,7 @@ public class CutSceneUIManager : MonoBehaviour
     [SerializeField] private AudioSource daktilo;
     [SerializeField] private Image blackScreen;
     [SerializeField] private Image[] cutImages;
+    [SerializeField] private Animator anim;
 
 
     private void Awake()
@@ -37,7 +38,9 @@ public class CutSceneUIManager : MonoBehaviour
         // Diðer metinleri yazdýr
         while (true)
         {
+            anim.SetBool("isOpen", true);
             daktilo.Stop();
+            textComponent.gameObject.SetActive(false);
             cutImages[currentIndex].gameObject.SetActive(false);
             yield return new WaitForSeconds(1f); // Kýsa bir bekleme ekleyebilirsiniz
             currentIndex = (currentIndex + 1) % texts.Length; // Bir sonraki metne geç
@@ -49,6 +52,8 @@ public class CutSceneUIManager : MonoBehaviour
     {
         daktilo.Play();
         cutImages[currentIndex].gameObject.SetActive(true);
+        textComponent.gameObject.SetActive(true);
+        anim.SetBool("isOpen", false);
         // Her harfi ekrana yazdýrmak için döngü
         for (int i = 0; i < text.Length; i++)
         {

@@ -41,13 +41,4 @@ public class tempHJmoce : MonoBehaviour
             this.transform.position = new Vector3(this.transform.position.x + 1, this.transform.position.y, 0);
         }
     }
-
-   
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "tup")
-        {
-            Debug.Log("Alindi");
-        }
-    }
 }
