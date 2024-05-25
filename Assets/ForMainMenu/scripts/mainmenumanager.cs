@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -14,6 +15,9 @@ public class mainmenumanager : MonoBehaviour
     public TextMeshProUGUI textMeshPro;
     public int sens, musicint;
     public Boolean music;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioSource hoverAudioSource;
+    [SerializeField] private AudioClip hoverSound;
 
     private void Awake()
     {
@@ -29,28 +33,47 @@ public class mainmenumanager : MonoBehaviour
         turnMainMenu.SetActive(false);
         muzikbut.SetActive(false);
         sensbut.SetActive(false);
+        // Add EventTriggers for buttons
+        AddEventTrigger(oynabuton);
+        AddEventTrigger(ayarlarbuton);
+        AddEventTrigger(cýkýsbuton);
+        AddEventTrigger(muzikbut);
+        AddEventTrigger(sensbut);
+        AddEventTrigger(turnMainMenu);
+    }
+    private void Start()
+    {
+        audioSource.Play();
     }
     private void Update()
     {
-       
+
         sens = (int)sensayarý.GetComponent<Slider>().value;
         textMeshPro.text = sens.ToString();
         PlayerPrefs.SetInt("sens", sens);
         music = muzikackapa.GetComponent<Toggle>().isOn;
-        if (music)
-        {
-            musicint = 1;
-            PlayerPrefs.SetInt("music", musicint);
-        }
-        if (!music)
-        {
-            musicint = 0;
-            PlayerPrefs.SetInt("music", musicint);
-        }
+        //if (music)
+        //{
+        //    audioSource.Play();
+        //}
+        //else
+        //{
+        //    audioSource.Stop();
+        //}
+        //if (music)
+        //{
+        //    musicint = 1;
+        //    PlayerPrefs.SetInt("music", musicint);
+        //}
+        //if (!music)
+        //{
+        //    musicint = 0;
+        //    PlayerPrefs.SetInt("music", musicint);
+        //}
     }
     public void Startgame()
     {
-        SceneManager.LoadSceneAsync("SampleScene");
+        SceneManager.LoadScene(0);
     }
     public void SettingsMenu()
     {
@@ -87,4 +110,60 @@ public class mainmenumanager : MonoBehaviour
         muzikbut.SetActive(false);
         sensbut.SetActive(false);
     }
+
+    private void AddEventTrigger(GameObject button)
+    {
+        EventTrigger trigger = button.AddComponent<EventTrigger>();
+
+        // PointerEnter event
+        EventTrigger.Entry pointerEnter = new EventTrigger.Entry();
+        pointerEnter.eventID = EventTriggerType.PointerEnter;
+        pointerEnter.callback.AddListener((data) => { OnPointerEnter(button); });
+        trigger.triggers.Add(pointerEnter);
+
+        // PointerExit event
+        EventTrigger.Entry pointerExit = new EventTrigger.Entry();
+        pointerExit.eventID = EventTriggerType.PointerExit;
+        pointerExit.callback.AddListener((data) => { OnPointerExit(button); });
+        trigger.triggers.Add(pointerExit);
+    }
+
+    private void OnPointerEnter(GameObject button)
+    {
+        Transform childTransform = button.transform.GetChild(0);
+        if (childTransform != null)
+        {
+            Image image = childTransform.GetComponent<Image>();
+            if (image != null)
+            {
+                Color color = image.color;
+                color.a = 1f; // Set transparency to 50%
+                image.color = color;
+            }
+        }
+        hoverAudioSource.Play();
+    }
+
+    private void OnPointerExit(GameObject button)
+    {
+        Transform childTransform = button.transform.GetChild(0);
+        if (childTransform != null)
+        {
+            Image image = childTransform.GetComponent<Image>();
+            if (image != null)
+            {
+                Color color = image.color;
+                color.a = 0f; // Reset transparency to 100%
+                image.color = color;
+            }
+        }
+    }
+
+    //private void PlayHoverSound()
+    //{
+    //    if (hoverSound != null && audioSource != null)
+    //    {
+    //        audioSource.PlayOneShot(hoverSound);
+    //    }
+    //}
 }
