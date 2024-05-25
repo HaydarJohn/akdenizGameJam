@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 public class mainmenumanager : MonoBehaviour
 {
-    public GameObject oynabuton, ayarlarbuton, cýkýsbuton, muzikackapa, sensayarý, turnMainMenu, muzikbut, sensbut, oyunismi, geriim;
+    public GameObject oynabuton, ayarlarbuton, exitButton, muzikackapa, sensayari, turnMainMenu, muzikbut, sensbut, oyunismi, geriim;
     [SerializeField] private GameObject settingButton;
     public TextMeshProUGUI textMeshPro;
     public int sens, musicint;
@@ -24,19 +24,20 @@ public class mainmenumanager : MonoBehaviour
         //mainbuttons
         oynabuton.SetActive(true);
         ayarlarbuton.SetActive(true);
-        cýkýsbuton.SetActive(true);
+        exitButton.SetActive(true);
         oyunismi.SetActive(true);
+        
 
-        //ayarlarbutonlarý
+        //ayarlarbutonlarï¿½
         //muzikackapa.SetActive(false);
-        //sensayarý.SetActive(false);
+        //sensayari.SetActive(false);
         turnMainMenu.SetActive(false);
         muzikbut.SetActive(false);
         sensbut.SetActive(false);
         // Add EventTriggers for buttons
         AddEventTrigger(oynabuton);
         AddEventTrigger(ayarlarbuton);
-        AddEventTrigger(cýkýsbuton);
+        AddEventTrigger(exitButton);
         AddEventTrigger(muzikbut);
         AddEventTrigger(sensbut);
         AddEventTrigger(turnMainMenu);
@@ -48,7 +49,7 @@ public class mainmenumanager : MonoBehaviour
     private void Update()
     {
 
-        sens = (int)sensayarý.GetComponent<Slider>().value;
+        sens = (int)sensayari.GetComponent<Slider>().value;
         textMeshPro.text = sens.ToString();
         PlayerPrefs.SetInt("sens", sens);
         music = muzikackapa.GetComponent<Toggle>().isOn;
@@ -80,12 +81,12 @@ public class mainmenumanager : MonoBehaviour
         //mainbuttons
         oynabuton.SetActive(false);
         ayarlarbuton.SetActive(false);
-        cýkýsbuton.SetActive(false);
+        exitButton.SetActive(false);
         oyunismi.SetActive(false);
 
-        //ayarlarbutonlarý
+        //ayarlarbutonlarï¿½
         //muzikackapa.SetActive(true);
-        //sensayarý.SetActive(true);
+        //sensayari.SetActive(true);
         turnMainMenu.SetActive(true);
         muzikbut.SetActive(true);
         sensbut.SetActive(true);
@@ -100,12 +101,12 @@ public class mainmenumanager : MonoBehaviour
         //mainbuttons
         oynabuton.SetActive(true);
         ayarlarbuton.SetActive(true);
-        cýkýsbuton.SetActive(true);
+        exitButton.SetActive(true);
         oyunismi.SetActive(true);
 
-        //ayarlarbutonlarý
+        //ayarlarbutonlarï¿½
         //muzikackapa.SetActive(false);
-        //sensayarý.SetActive(false);
+        //sensayari.SetActive(false);
         turnMainMenu.SetActive(false);
         muzikbut.SetActive(false);
         sensbut.SetActive(false);

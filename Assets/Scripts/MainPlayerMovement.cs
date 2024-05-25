@@ -7,10 +7,10 @@ public class MainPlayerMovement : MonoBehaviour
 {
     private Rigidbody2D rb;
     [SerializeField] private float speed;
-    [SerializeField] private float circleCastRadius = 0.5f; // Dairesel rayýn yarýçapý
-    [SerializeField] private LayerMask wallLayer; // Duvar katmanýný ayarlamak için
+    [SerializeField] private float circleCastRadius = 0.5f; // Dairesel rayï¿½n yarï¿½ï¿½apï¿½
+    [SerializeField] private LayerMask wallLayer; // Duvar katmanï¿½nï¿½ ayarlamak iï¿½in
     private bool isWall = true;
-    [SerializeField] private float minAngle; // Minimum açý
+    [SerializeField] private float minAngle; // Minimum aï¿½ï¿½
     [SerializeField] private float maxAngle;
     private Vector2 targetPosition;
     private Vector2 moveDirection;
@@ -90,7 +90,7 @@ public class MainPlayerMovement : MonoBehaviour
     }
 
 
-    //// Hedef pozisyona ulaþtýðýnda dur
+    //// Hedef pozisyona ulaï¿½tï¿½ï¿½ï¿½nda dur
     //if (!isWall && Vector2.Distance(rb.position, targetPosition) < 0.1f)
     //{
     //    StopMovement();
