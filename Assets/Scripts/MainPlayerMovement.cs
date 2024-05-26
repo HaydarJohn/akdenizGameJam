@@ -7,6 +7,9 @@ public class MainPlayerMovement : MonoBehaviour
 {
     private Rigidbody2D rb;
     [SerializeField] private float speed;
+    [SerializeField] private float currentSpeed;
+    [SerializeField] private float initialSpeed;
+    [SerializeField] public float acceleration;
     [SerializeField] private float circleCastRadius = 0.5f; // Dairesel ray�n yar��ap�
     [SerializeField] private LayerMask wallLayer; // Duvar katman�n� ayarlamak i�in
     private bool isWall = true;
@@ -34,6 +37,17 @@ public class MainPlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         movement();
+        if (!isWall)
+        {
+            // Mevcut hızımızı kademeli olarak artırıyoruz
+            currentSpeed += acceleration;
+
+            // Maksimum hızı aşmamak için sınırlandırıyoruz
+            currentSpeed = Mathf.Min(currentSpeed, speed);
+
+            // Hareket yönünde hızımızı uyguluyoruz
+            rb.velocity = moveDirection * currentSpeed;
+        }
     }
 
     private void DrawLineToMouse()
@@ -46,11 +60,11 @@ public class MainPlayerMovement : MonoBehaviour
 
     public double fixAngle(double angle)
     {
-        if(angle > 360)
+        if (angle > 360)
         {
             return angle - 360;
         }
-        else if( angle < 0)
+        else if (angle < 0)
         {
             return angle + 360;
         }
@@ -60,12 +74,12 @@ public class MainPlayerMovement : MonoBehaviour
         }
     }
 
-    private bool validAngle(Vector2 mouse,Vector2 normal)
+    private bool validAngle(Vector2 mouse, Vector2 normal)
     {
-        double deltaAngle = Vector2.Angle(mouse , normal);
+        double deltaAngle = Vector2.Angle(mouse, normal);
 
         return 80 > deltaAngle;
-        
+
     }
 
 
@@ -76,26 +90,19 @@ public class MainPlayerMovement : MonoBehaviour
         float deltaY = previusHit.point.y - rb.position.y;
         Vector2 normal = new Vector2(-deltaX, -deltaY);
         Vector2 relativeMouse = mousePosition - rb.position;
-        
+
         if (validAngle(relativeMouse, normal))
         {
             if (Input.GetKey(KeyCode.Space) && isWall)
             {
+                currentSpeed = initialSpeed;
                 targetPosition = mousePosition;
                 moveDirection = (targetPosition - rb.position).normalized;
-                rb.velocity = moveDirection * speed;
+                //rb.velocity = moveDirection * speed;
                 isWall = false;
             }
         }
     }
-
-
-    //// Hedef pozisyona ula�t���nda dur
-    //if (!isWall && Vector2.Distance(rb.position, targetPosition) < 0.1f)
-    //{
-    //    StopMovement();
-    //}
-
 
     private void CheckCollisionWithCircleCast()
     {
