@@ -694,9 +694,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   oynabuton: {fileID: 338954440}
   ayarlarbuton: {fileID: 809395241}
-  "c\u0131k\u0131sbuton": {fileID: 74666398}
+  exitButton: {fileID: 0}
   muzikackapa: {fileID: 57614954}
-  "sensayar\u0131": {fileID: 425759906}
+  sensayari: {fileID: 0}
   turnMainMenu: {fileID: 2007343890}
   muzikbut: {fileID: 750564740}
   sensbut: {fileID: 2136367197}
