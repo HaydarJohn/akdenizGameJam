@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class questScript : MonoBehaviour
 {
-    public float progressSpeed = 50;
+    private float progress = 0;
+    public float progressSpeed = 75;
     private bool trigerred;
     // Start is called before the first frame update
     void Start()
@@ -18,6 +19,8 @@ public class questScript : MonoBehaviour
         if(trigerred)
         {
             questManager.instance.incrementCompletion(progressSpeed*Time.deltaTime);
+            progress = questManager.instance.getCompletion();
+            progresBar();
         }
     }
 
@@ -37,5 +40,10 @@ public class questScript : MonoBehaviour
         {
             trigerred = false;
         }
+    }
+
+    private void progresBar()
+    {
+
     }
 }
