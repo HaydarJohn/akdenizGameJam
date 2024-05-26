@@ -13,6 +13,6 @@ public class Grid : MonoBehaviour
 
     void onDrawGizmos()
     {
-        //Gizmos.DrwaWireCube(transform.position,new Vector3())
+        Gizmos.DrawWireCube(transform.position,new Vector3(gridWorldSize.x , gridWorldSize.y , 1));
     }
 }
