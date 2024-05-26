@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class questScript : MonoBehaviour
+public class questScript5 : MonoBehaviour
 {
     private float progress = 0;
-    public float progressSpeed = 75;
+    public float progressSpeed = 25;
     private bool trigerred;
     // Start is called before the first frame update
     void Start()
@@ -16,12 +16,7 @@ public class questScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(progress > 100)
-        {
-            questManager.instance.quest2b = true;
-            questManager.instance.quest1b = false;
-        }
-        if(trigerred && questManager.instance.quest1b)
+        if(trigerred)
         {
             questManager.instance.incrementCompletion(progressSpeed*Time.deltaTime);
             progress = questManager.instance.getCompletion();
