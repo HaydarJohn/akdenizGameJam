@@ -9,6 +9,8 @@ TagManager:
   - Wall
   - Oxygen
   - OxygenStation
+  - Kaynak
+  - Anahtar
   layers:
   - Default
   - TransparentFX
@@ -16,8 +18,8 @@ TagManager:
   - Wall
   - Water
   - UI
-  - 
-  - 
+  - Enemy
+  - Desk
   - 
   - 
   - 

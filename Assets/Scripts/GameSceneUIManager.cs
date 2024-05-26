@@ -22,7 +22,8 @@ public class GameSceneUIManager : MonoBehaviour
     public void GameOverText()
     {
         gameOverText.gameObject.SetActive(true);
-    } public void GameWin()
+    }
+    public void GameWin()
     {
         gameOverText.gameObject.SetActive(true);
     }

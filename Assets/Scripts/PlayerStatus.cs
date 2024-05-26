@@ -39,6 +39,7 @@ public class PlayerStatus : MonoBehaviour
         if (oxygenLevel <= 0)
         {
             GameSceneUIManager.Instance.GameOverText();
+            GameManager.Instance.isGameOver = true;
         }
         Debug.Log(isGasStation);
     }

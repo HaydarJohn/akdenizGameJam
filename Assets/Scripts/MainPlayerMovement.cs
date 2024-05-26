@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 
 
@@ -12,6 +14,7 @@ public class MainPlayerMovement : MonoBehaviour
     [SerializeField] public float acceleration;
     [SerializeField] private float circleCastRadius = 0.5f; // Dairesel ray�n yar��ap�
     [SerializeField] private LayerMask wallLayer; // Duvar katman�n� ayarlamak i�in
+    [SerializeField] private LayerMask deskLayer; // Duvar katman�n� ayarlamak i�in
     private bool isWall = true;
     [SerializeField] private float minAngle; // Minimum a��
     [SerializeField] private float maxAngle;
@@ -20,6 +23,10 @@ public class MainPlayerMovement : MonoBehaviour
     private LineRenderer lineRenderer;
     private RaycastHit2D previusHit;
     public const double PI = 3.14159265359;
+    [SerializeField] private GameObject desk;
+    [SerializeField] private TextMeshProUGUI InteractText;
+    [SerializeField] private TextMeshProUGUI closeMapText;
+    [SerializeField] private GameObject map;
 
 
     private void Start()
@@ -30,8 +37,14 @@ public class MainPlayerMovement : MonoBehaviour
     }
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            CloseMap();
+            closeMapText.gameObject.SetActive(false);
+        }
         DrawLineToMouse();
         CheckCollisionWithCircleCast();
+        CheckInteract();
 
     }
     private void FixedUpdate()
@@ -82,7 +95,31 @@ public class MainPlayerMovement : MonoBehaviour
 
     }
 
+    private void CheckInteract()
+    {
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
+        Vector2 direction = (Vector2)mousePosition - rb.position;
+
+        RaycastHit2D hit = Physics2D.Raycast(rb.position, direction, 1, wallLayer);
+
+        if (hit.collider != null && hit.collider.gameObject == desk)
+        {
+            InteractText.gameObject.SetActive(true);
+            Debug.Log("Map i açmak için tıkla");
+            if (Input.GetMouseButtonDown(0))
+            {
+                closeMapText.gameObject.SetActive(true);
+                OpenMap();
+                Debug.Log("Map i açıldı");
+            }
+        }
+        else
+        {
+            InteractText.gameObject.SetActive(false);
+        }
+
+    }
     private void movement()
     {
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -124,5 +161,14 @@ public class MainPlayerMovement : MonoBehaviour
     {
         rb.velocity = Vector2.zero;
         rb.angularVelocity = 0f;
+    }
+
+    private void CloseMap()
+    {
+        map.SetActive(false);
+    }
+    private void OpenMap()
+    {
+        map.SetActive(true);
     }
 }
