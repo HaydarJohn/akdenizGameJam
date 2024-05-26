@@ -33,13 +33,13 @@ public class mainmenumanager : MonoBehaviour
         //sensayari.SetActive(false);
         turnMainMenu.SetActive(false);
         muzikbut.SetActive(false);
-        sensbut.SetActive(false);
+        //sensbut.SetActive(false);
         // Add EventTriggers for buttons
         AddEventTrigger(oynabuton);
         AddEventTrigger(ayarlarbuton);
         AddEventTrigger(exitButton);
         AddEventTrigger(muzikbut);
-        AddEventTrigger(sensbut);
+        //AddEventTrigger(sensbut);
         AddEventTrigger(turnMainMenu);
     }
     private void Start()
@@ -49,8 +49,8 @@ public class mainmenumanager : MonoBehaviour
     private void Update()
     {
 
-        sens = (int)sensayari.GetComponent<Slider>().value;
-        textMeshPro.text = sens.ToString();
+        //sens = (int)sensayari.GetComponent<Slider>().value;
+        //textMeshPro.text = sens.ToString();
         PlayerPrefs.SetInt("sens", sens);
         music = muzikackapa.GetComponent<Toggle>().isOn;
         //if (music)
@@ -74,7 +74,7 @@ public class mainmenumanager : MonoBehaviour
     }
     public void Startgame()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
     public void SettingsMenu()
     {
@@ -89,7 +89,7 @@ public class mainmenumanager : MonoBehaviour
         //sensayari.SetActive(true);
         turnMainMenu.SetActive(true);
         muzikbut.SetActive(true);
-        sensbut.SetActive(true);
+        //sensbut.SetActive(true);
         settingButton.SetActive(true);
     }
     public void QuitGame()
@@ -109,7 +109,7 @@ public class mainmenumanager : MonoBehaviour
         //sensayari.SetActive(false);
         turnMainMenu.SetActive(false);
         muzikbut.SetActive(false);
-        sensbut.SetActive(false);
+        //sensbut.SetActive(false);
     }
 
     private void AddEventTrigger(GameObject button)

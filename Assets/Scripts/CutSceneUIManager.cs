@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 
 public class CutSceneUIManager : MonoBehaviour
 {
@@ -16,7 +17,8 @@ public class CutSceneUIManager : MonoBehaviour
     private bool isTimer = false;
     [SerializeField] private AudioSource daktilo;
     [SerializeField] private Image blackScreen;
-    [SerializeField] private Image[] cutImages;
+    //[SerializeField] private Image[] cutImages;
+    [SerializeField] private Image cutImages;
     [SerializeField] private Animator anim;
 
 
@@ -26,7 +28,10 @@ public class CutSceneUIManager : MonoBehaviour
     }
     private void Update()
     {
-
+        if (currentIndex == texts.Length -1)
+        {
+            SceneManager.LoadScene("Muslum");
+        }
     }
     IEnumerator Start()
     {
@@ -41,7 +46,7 @@ public class CutSceneUIManager : MonoBehaviour
             anim.SetBool("isOpen", true);
             daktilo.Stop();
             textComponent.gameObject.SetActive(false);
-            cutImages[currentIndex].gameObject.SetActive(false);
+            cutImages.gameObject.SetActive(false);
             yield return new WaitForSeconds(1f); // Kýsa bir bekleme ekleyebilirsiniz
             currentIndex = (currentIndex + 1) % texts.Length; // Bir sonraki metne geç
             yield return StartCoroutine(TypeText(texts[currentIndex])); // Yeni metni yazdýr
@@ -51,7 +56,7 @@ public class CutSceneUIManager : MonoBehaviour
     IEnumerator TypeText(string text)
     {
         daktilo.Play();
-        cutImages[currentIndex].gameObject.SetActive(true);
+        cutImages.gameObject.SetActive(true);
         textComponent.gameObject.SetActive(true);
         anim.SetBool("isOpen", false);
         // Her harfi ekrana yazdýrmak için döngü
