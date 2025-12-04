@@ -59,7 +59,7 @@ public class MainPlayerMovement : MonoBehaviour
             currentSpeed = Mathf.Min(currentSpeed, speed);
 
             // Hareket yönünde hızımızı uyguluyoruz
-            rb.velocity = moveDirection * currentSpeed;
+            rb.linearVelocity = moveDirection * currentSpeed;
         }
     }
 
@@ -159,7 +159,7 @@ public class MainPlayerMovement : MonoBehaviour
 
     private void StopMovement()
     {
-        rb.velocity = Vector2.zero;
+        rb.linearVelocity = Vector2.zero;
         rb.angularVelocity = 0f;
     }
 
